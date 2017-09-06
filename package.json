@@ -16,5 +16,14 @@
   "bugs": {
     "url": "https://github.com/eduardolops/restful-nodejs-restify/issues"
   },
-  "homepage": "https://github.com/eduardolops/restful-nodejs-restify#readme"
+  "homepage": "https://github.com/eduardolops/restful-nodejs-restify#readme",
+  "devDependencies": {
+    "eslint": "^4.6.1",
+    "eslint-config-standard": "^10.2.1",
+    "eslint-plugin-import": "^2.7.0",
+    "eslint-plugin-node": "^5.1.1",
+    "eslint-plugin-promise": "^3.5.0",
+    "eslint-plugin-standard": "^3.0.1",
+    "restify": "^5.2.0"
+  }
 }
