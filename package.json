@@ -1,0 +1,20 @@
+{
+  "name": "restful-ws",
+  "version": "1.0.0",
+  "description": "RESTful with Node.js, Restify and MySQL",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/eduardolops/restful-nodejs-restify.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/eduardolops/restful-nodejs-restify/issues"
+  },
+  "homepage": "https://github.com/eduardolops/restful-nodejs-restify#readme"
+}
