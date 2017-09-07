@@ -1,4 +1,9 @@
+const restify = require('restify')
+const server = restify.createServer()
 
-eduardo = 'asas'
+server.get('/', (req, res, next) => {
+  res.send('Enjoy the silence...')
+  next()
+})
 
-module.exports = eduardo
+server.listen('3456')
