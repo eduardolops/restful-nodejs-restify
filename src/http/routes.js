@@ -1,11 +1,9 @@
 
-const routes = (server) => {
-  server.get('/', (req, res, next) => {
-    res.send('Enjoy the silence...')
-    next()
-  })
+const categories = require('../service/mysql')
 
+const routes = (server) => {
   server.get('category', (req, res, next) => {
+    categories.then(categories => console.log(categories)).catch(error => console.error(error))
     res.send([1, 'asas'])
     next()
   })
@@ -25,6 +23,11 @@ const routes = (server) => {
 //     res.send('category')
 //     next()
 //   })
+
+  server.get('/', (req, res, next) => {
+    res.send('Enjoy the silence...')
+    next()
+  })
 }
 
 module.exports = routes
