@@ -3,10 +3,11 @@ const categories = (dep) => {
   return {
     all: () => {
       return new Promise((resolve, reject) => {
-        const { connection } = dep
+        const { connection, errorHandler } = dep
         connection.query('SELECT * FROM categories', (error, results) => {
           if (error) {
-            reject(error)
+            errorHandler(error, 'Falha ao listar as categorias', reject)
+            return false
           }
           resolve({ categories: results })
         })
