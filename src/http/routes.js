@@ -1,10 +1,13 @@
 
-const categories = require('../service/mysql')
+const db = require('../service/mysql')
 
 const routes = (server) => {
   server.get('category', (req, res, next) => {
-    categories.then(categories => console.log(categories)).catch(error => console.error(error))
-    res.send([1, 'asas'])
+    db.categories().all().then(categories => {
+      res.send(categories)
+    }).catch(error => {
+      res.send(error)
+    })
     next()
   })
 
@@ -13,16 +16,6 @@ const routes = (server) => {
     res.send(name)
     next()
   })
-
-//   server.put('category', (req, res, next) => {
-//     res.send('category')
-//     next()
-//   })
-
-//   server.delete('category', (req, res, next) => {
-//     res.send('category')
-//     next()
-//   })
 
   server.get('/', (req, res, next) => {
     res.send('Enjoy the silence...')

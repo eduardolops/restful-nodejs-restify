@@ -9,14 +9,8 @@ const connection = mysqlServer.createConnection({
   database: 'restful-ws'
 })
 
-const categories = new Promise((resolve, reject) => {
-  connection.query('SELECT * FROM categories', (error, results) => {
-    if (error) {
-      reject(error)
-    }
+const categoryModel = require('./categories')({ connection })
 
-    resolve({ categories: results })
-  })
-})
-
-module.exports = categories
+module.exports = {
+  categories: () => categoryModel
+}
