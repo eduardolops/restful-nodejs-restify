@@ -4,13 +4,13 @@ const db = require('../service/mysql')
 const routes = (server) => {
   server.get('category', async (req, res, next) => {
     try {
-        res.send( await db.categories().all() )
-        next()
-    } catch {
-        res.send( error )
-        next()
+      res.send(await db.categories().all())
+      next()
+    } catch (error) {
+      res.send(error)
+      next()
     }
-    
+
     // db.categories().all().then(categories => {
     //   res.send(categories)
     // }).catch(error => {
