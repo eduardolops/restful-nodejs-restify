@@ -32,11 +32,11 @@ const categories = (dep) => {
         const { connection, errorHandler } = dep
         let sql = 'UPDATE categories SET name = ? WHERE id = ?'
         connection.query(sql, [name, id], (error, results) => {
-          if (error) {
+          if (error || !results.affectedRows) {
             errorHandler(error, `Falha ao atualizar a categoria ${name}`, reject)
             return false
           }
-          resolve({ category: { name } })
+          resolve({ category: { name, id }, affectedRows: results.affectedRows })
         })
       })
     },
@@ -45,11 +45,11 @@ const categories = (dep) => {
         const { connection, errorHandler } = dep
         let sql = 'DELETE FROM categories WHERE id = ?'
         connection.query(sql, [id], (error, results) => {
-          if (error) {
+          if (error || !results.affectedRows) {
             errorHandler(error, `Falha ao remover a categoria de id ${id}`, reject)
             return false
           }
-          resolve({ message: 'Categoria removida com sucesso' })
+          resolve({ message: 'Categoria removida com sucesso', affectedRows: results.affectedRow })
         })
       })
     }
