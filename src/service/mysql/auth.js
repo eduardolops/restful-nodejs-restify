@@ -6,19 +6,18 @@ const auth = (dep) => {
   return {
     authenticate: (email, password) => {
       return new Promise((resolve, reject) => {
-        
         const { connection, errorHandler } = dep
         let queryString = 'SELECT id, email FROM users WHERE email = ? and password = ?'
         let queryData = [email, sha1(password)]
 
         connection.query(queryString, queryData, (error, result) => {
           if (error || !result.length) {
-            errorHandler(error, 'Falha ao listar as usuários', reject)
+            errorHandler(error, 'Falha ao localizar usuario', reject)
             return false
           }
 
           const { email, id } = result[0]
-          const token = jwt.sign({ email, id }, 'ironman', { expiresIn: 60 * 60 * 24 })
+          const token = jwt.sign({ email, id }, process.env.JWTSECRET, { expiresIn: 60 * 60 * 24 })
 
           resolve({ token })
         })
