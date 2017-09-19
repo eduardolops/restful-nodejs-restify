@@ -1,10 +1,12 @@
 
+const sha1 = require('sha1')
+
 const users = (dep) => {
   return {
     all: () => {
       return new Promise((resolve, reject) => {
         const { connection, errorHandler } = dep
-        let sql = 'SELECT * FROM users'
+        let sql = 'SELECT id, email FROM users'
         connection.query(sql, (error, results) => {
           if (error) {
             errorHandler(error, 'Falha ao listar as usuários', reject)
@@ -14,29 +16,29 @@ const users = (dep) => {
         })
       })
     },
-    save: (name) => {
+    save: (email, password) => {
       return new Promise((resolve, reject) => {
         const { connection, errorHandler } = dep
-        let sql = 'INSERT INTO users (name) VALUES (?)'
-        connection.query(sql, [name], (error, results) => {
+        let sql = 'INSERT INTO users (email, password) VALUES (?, ?)'
+        connection.query(sql, [email, sha1(password)], (error, results) => {
           if (error) {
-            errorHandler(error, `Falha ao salvar a usuário ${name}`, reject)
+            errorHandler(error, `Falha ao salvar a usuário ${email}`, reject)
             return false
           }
-          resolve({ user: { name, id: results.insertId } })
+          resolve({ user: { email, id: results.insertId } })
         })
       })
     },
-    update: (id, name) => {
+    update: (id, password) => {
       return new Promise((resolve, reject) => {
         const { connection, errorHandler } = dep
-        let sql = 'UPDATE users SET name = ? WHERE id = ?'
-        connection.query(sql, [name, id], (error, results) => {
+        let sql = 'UPDATE users SET password = ? WHERE id = ?'
+        connection.query(sql, [sha1(password), id], (error, results) => {
           if (error || !results.affectedRows) {
-            errorHandler(error, `Falha ao atualizar a usuário ${name}`, reject)
+            errorHandler(error, `Falha ao atualizar a usuário do id ${id}`, reject)
             return false
           }
-          resolve({ user: { name, id }, affectedRows: results.affectedRows })
+          resolve({ user: { id }, affectedRows: results.affectedRows })
         })
       })
     },
