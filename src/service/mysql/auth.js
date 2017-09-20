@@ -17,7 +17,7 @@ const auth = (dep) => {
           }
 
           const { email, id } = result[0]
-          const token = jwt.sign({ email, id }, process.env.JWTSECRET, { expiresIn: 60 * 60 * 24 })
+          const token = jwt.sign({ email, id }, process.env.JWT_SECRET, { expiresIn: 60 * 60 * 24 })
 
           resolve({ token })
         })
